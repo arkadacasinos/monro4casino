@@ -1,0 +1,127 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-ink: #0b1322;
+  --color-panel: #101b30;
+  --color-panel2: #16233c;
+  --color-line: #22314e;
+  --color-fog: #e9eef8;
+  --color-flame: #ff5a1f;
+  --color-ruby: #e8112d;
+  --color-royal: #2414e0;
+}
+
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    background-color: var(--color-ink);
+  }
+}
+
+/* mobile drawer: pure-CSS :target pattern, desktop becomes sticky rail */
+.x4v7-rail {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 50;
+  width: 288px;
+  max-width: 85vw;
+  transform: translateX(-104%);
+  transition: transform 0.25s ease;
+  overflow-y: auto;
+}
+
+.x4v7-rail:target {
+  transform: translateX(0);
+}
+
+.x4v7-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: none;
+  background: rgb(3 7 14 / 0.62);
+}
+
+.x4v7-rail:target ~ .x4v7-scrim {
+  display: block;
+}
+
+@media (min-width: 1024px) {
+  .x4v7-rail {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    height: 100dvh;
+    width: 264px;
+    max-width: none;
+    transform: none;
+    transition: none;
+  }
+
+  .x4v7-scrim {
+    display: none !important;
+  }
+}
+
+.x4v7-felt {
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, #1d7a4f 0%, #145c3b 55%, #0e4630 100%);
+  box-shadow:
+    0 0 0 6px #0a3524,
+    0 0 0 10px #b98a2f,
+    0 18px 40px rgb(0 0 0 / 0.45);
+}
+
+.x4v7-bubble::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -11px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 12px solid var(--color-fog);
+  transform: translateX(-50%);
+}
+
+.x4v7-marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+}
+
+.x4v7-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: x4v7-slide 36s linear infinite;
+}
+
+.x4v7-marquee:hover .x4v7-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes x4v7-slide {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.x4v7-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+}
+
+.x4v7-h2 {
+  display: inline-block;
+  border-bottom: 2px solid var(--color-flame);
+  padding-bottom: 0.4rem;
+}
